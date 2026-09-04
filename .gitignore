@@ -1,0 +1,13 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+
+# Local development environments
+.vscode/
+
+# Virtual Environment
+venv/
+
+# Data and large files (keep raw datasets out of git)
+data/
+*.csv
+*.jpg

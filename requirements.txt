@@ -1,0 +1,13 @@
+pandas
+numpy<2
+matplotlib
+scikit-learn
+imbalanced-learn
+interpret
+lime
+shap
+dice-ml
+torch==2.2.2
+torchvision==0.17.2
+ipykernel
+captum
