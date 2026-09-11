@@ -11,3 +11,4 @@ venv/
 data/
 *.csv
 *.jpg
+.ipynb_checkpoints/

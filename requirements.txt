@@ -2,6 +2,7 @@ pandas
 numpy<2
 matplotlib
 scikit-learn
+statsmodels
 imbalanced-learn
 interpret
 lime
