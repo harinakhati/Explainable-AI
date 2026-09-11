@@ -36,6 +36,32 @@ The current LRP implementation is written directly with PyTorch operations;
 it does not require a separate `lrp` package. `captum` is included in the
 requirements for possible future attribution experiments.
 
+### Linear regression for bike-sharing interpretability
+
+`01-linear-regression-bike-sharing-interpretability.ipynb` implements the linear
+regression example from the *Interpretable Machine Learning* book using the UCI
+bike-sharing daily dataset at `data/bike+sharing+dataset/day.csv`. The notebook
+preprocesses the data, adds a two-day lag feature, encodes seasonal and weather
+categories with reference levels, and evaluates a scikit-learn linear regression
+model with MAE, RMSE, and test $R^2$.
+
+It also fits the training data with `statsmodels.OLS` to inspect coefficient
+uncertainty and creates weight plots, feature-effect plots, and an individual
+prediction decomposition. The notebook focuses on reproducing the book's data
+processing and interpretation concepts; its coefficients may differ because it
+uses a reproducible `train_test_split` with `random_state=42`.
+
+### Experiments based on *Interpretable Machine Learning*
+
+This project follows Christoph Molnar's [*Interpretable Machine Learning*]
+(https://christophm.github.io/interpretable-ml-book/) book as a practical study
+guide. The bike-sharing notebook is the first implementation of its interpretable
+linear-model concepts. Future experiments will work through the book's broader
+coverage of interpretable models, model-agnostic methods, feature effects,
+surrogate models, and example datasets. This includes the [Logistic Regression]
+(https://christophm.github.io/interpretable-ml-book/logistic.html) chapter, as
+well as further chapters and techniques selected as the project develops.
+
 ## Project structure
 
 The structure below describes the current examples. New datasets can be added
@@ -44,13 +70,15 @@ separate scripts or notebooks.
 
 ```text
 .
-├── 01_lime.py
-├── 02_shap.py
-├── 03_counterfactuals.py
-├── data_exploration.py
-├── interpretable_models.py
-├── utils.py
-├── lrp_brain_mri.ipynb
+├── Tutorial-practiced/
+│   ├── 01_lime.py
+│   ├── 02_shap.py
+│   ├── 03_counterfactuals.py
+│   ├── data_exploration.py
+│   ├── interpretable_models.py
+│   ├── utils.py
+│   └── lrp_brain_mri.ipynb
+├── 01-linear-regression-bike-sharing-interpretability.ipynb
 ├── data/
 │   ├── healthcare-dataset-stroke-data.csv
 │   └── brain_mri/
@@ -67,6 +95,7 @@ files under version control. The `.gitignore` excludes local or generated
 files:
 
 - `.vscode/` and `venv/` environment-specific configuration and environments.
+- `.ipynb_checkpoints/` generated Jupyter notebook checkpoints.
 - `__pycache__/` Python bytecode caches.
 - `data/`, `*.csv`, and `*.jpg` datasets and image files, which may be large
 	or subject to their own licensing and privacy restrictions.
@@ -114,11 +143,11 @@ conda deactivate
 Run scripts from the project root so the relative dataset path resolves:
 
 ```bash
-python data_exploration.py
-python interpretable_models.py
-python 01_lime.py
-python 02_shap.py
-python 03_counterfactuals.py
+python Tutorial-practiced/data_exploration.py
+python Tutorial-practiced/interpretable_models.py
+python Tutorial-practiced/01_lime.py
+python Tutorial-practiced/02_shap.py
+python Tutorial-practiced/03_counterfactuals.py
 ```
 
 InterpretML and some explanation methods open visualizations through the
@@ -158,17 +187,18 @@ Planned areas of practice include:
 - Recording experiment settings, metrics, and observations so results can be
 	compared consistently.
 
-## Running the LRP notebook
+## Running the notebooks
 
-Open `lrp_brain_mri.ipynb` in VS Code or Jupyter and select the `myenv` Python
-kernel. The notebook was originally configured for Google Colab and GPU
-execution. Before running it locally, update `TRAIN_ROOT` and `TEST_ROOT` to
-the local `data/brain_mri/training` and `data/brain_mri/testing` directories.
+Open `01-linear-regression-bike-sharing-interpretability.ipynb` in VS Code or
+Jupyter and select the `myenv` Python kernel. Run the cells from the repository
+root so the relative path to `data/bike+sharing+dataset/day.csv` resolves.
 
-The notebook currently selects `cuda:0`. For a CPU-only machine, change the
-device selection to:
+Open `Tutorial-practiced/lrp_brain_mri.ipynb` in VS Code or Jupyter and select
+the `myenv` Python kernel. The notebook was originally configured for Google
+Colab and GPU execution. Before running it locally, update `TRAIN_ROOT` and
+`TEST_ROOT` to the local `data/brain_mri/training` and
+`data/brain_mri/testing` directories.
 
-```python
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 ```
 
