@@ -51,12 +51,29 @@ prediction decomposition. The notebook focuses on reproducing the book's data
 processing and interpretation concepts; its coefficients may differ because it
 uses a reproducible `train_test_split` with `random_state=42`.
 
+### Logistic regression for penguin interpretability
+
+`02-logistic-regression.ipynb` reproduces the logistic regression example from
+the *Interpretable Machine Learning* book using the Palmer Penguins dataset at
+`data/penguins.csv`. It filters to Chinstrap penguins, removes incomplete rows,
+and predicts whether a penguin is female from bill measurements, flipper
+length, and a categorical `chonkiness` feature derived from body mass.
+
+The notebook uses `statsmodels.Logit` to examine coefficients, standard errors,
+odds ratios, confidence intervals, and p-values. It also decomposes an
+individual prediction into log-odds contributions and evaluates the fitted
+model with classification metrics, ROC-AUC, a calibration curve, and the Brier
+score. The reported ROC-AUC (about `0.974`) and Brier score (about `0.067`) are
+training-set results, so they should not be treated as estimates of
+generalization performance.
+
 ### Experiments based on *Interpretable Machine Learning*
 
 This project follows Christoph Molnar's [*Interpretable Machine Learning*]
 (https://christophm.github.io/interpretable-ml-book/) book as a practical study
 guide. The bike-sharing notebook is the first implementation of its interpretable
-linear-model concepts. Future experiments will work through the book's broader
+linear-model concepts, including the bike-sharing and penguin logistic
+regression notebooks. Future experiments will work through the book's broader
 coverage of interpretable models, model-agnostic methods, feature effects,
 surrogate models, and example datasets. This includes the [Logistic Regression]
 (https://christophm.github.io/interpretable-ml-book/logistic.html) chapter, as
@@ -79,8 +96,10 @@ separate scripts or notebooks.
 │   ├── utils.py
 │   └── lrp_brain_mri.ipynb
 ├── 01-linear-regression-bike-sharing-interpretability.ipynb
+├── 02-logistic-regression.ipynb
 ├── data/
 │   ├── healthcare-dataset-stroke-data.csv
+│   ├── penguins.csv
 │   └── brain_mri/
 │       ├── training/
 │       └── testing/
@@ -192,6 +211,12 @@ Planned areas of practice include:
 Open `01-linear-regression-bike-sharing-interpretability.ipynb` in VS Code or
 Jupyter and select the `myenv` Python kernel. Run the cells from the repository
 root so the relative path to `data/bike+sharing+dataset/day.csv` resolves.
+
+Open `02-logistic-regression.ipynb` in VS Code or Jupyter and select the `myenv`
+Python kernel. Run the cells from the repository root so the relative path to
+`data/penguins.csv` resolves. The notebook drops rows with missing values and
+evaluates the model on the same observations used for fitting; use a held-out
+split or cross-validation for a generalization estimate.
 
 Open `Tutorial-practiced/lrp_brain_mri.ipynb` in VS Code or Jupyter and select
 the `myenv` Python kernel. The notebook was originally configured for Google
